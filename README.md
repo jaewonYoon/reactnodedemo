@@ -1,2 +1,1 @@
-# reactnodedemo
-for react, nodejs, mongodb practice 
+Beck React Node tutorial
