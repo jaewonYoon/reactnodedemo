@@ -2,7 +2,8 @@ import constants from "../contstants/actionTypes";
 
 var initialState = {
   news: [],
-  newsItem: {}
+  newsItem: {},
+  newsItemLoading: true
 };
 
 export default (state = initialState, action) => {
@@ -13,8 +14,12 @@ export default (state = initialState, action) => {
       updated["news"] = action.news;
       return updated;
 
-    case ConstantSourceNode.NEWSITEM_RECEIVED:
+    case constants.NEWSITEM_RECEIVED:
       updated["newsItem"] = action.newsItem;
+      return updated;
+
+    case constants.NEWSITEM_LOADING:
+      updated["newsItemLoading"] = true;
       return updated;
 
     default:

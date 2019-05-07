@@ -12,13 +12,41 @@ function newsReceived(news) {
     news: news
   };
 }
-export function fetchNewsItem(fakeNewsItem) {
-  return dispatch => {
-    dispatch(newsItemReceived(fakeNewsItem));
+function newsItemLoading() {
+  return {
+    type: actionTypes.NEWSITEM_LOADING
   };
 }
-export function fetchNews(fakeNews) {
+export function fetchNews() {
+  console.log("presend");
+
   return dispatch => {
-    dispatch(newsReceived(fakeNews));
+    return fetch(`/news`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(e => console.log(e));
+  };
+}
+
+export function fetchNewsItem(id) {
+  return dispatch => {
+    return fetch(`/news/${id}`)
+      .then(response => response.json())
+      .then(data => dispatch(newsItemReceived(data.data)))
+      .catch(e => console.log(e));
+  };
+}
+
+export function submitNewsStory(data) {
+  return dispatch => {
+    return fetch("/news", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+      mode: "cors"
+    }).catch(e => console.log(e));
   };
 }
